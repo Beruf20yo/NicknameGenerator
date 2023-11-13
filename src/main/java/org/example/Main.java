@@ -29,18 +29,11 @@ public class Main {
                     }
                 }
                 if (isBeauty) {
-                    if(str.length() == 3){
-                        lengthThreeCounter.incrementAndGet();
-                    }
-                    if(str.length() == 4){
-                        lengthFourCounter.incrementAndGet();
-                    }
-                    if(str.length() == 5){
-                        lengthFiveCounter.incrementAndGet();
-                    }
+                    increment(str);
                 }
             }
         });
+        checkSymbolOrder.start();
         threads.add(checkSymbolOrder);
         Thread palindrome = new Thread(()->
         {
@@ -54,18 +47,11 @@ public class Main {
                     }
                 }
                 if (isBeauty) {
-                    if(str.length() == 3){
-                        lengthThreeCounter.incrementAndGet();
-                    }
-                    if(str.length() == 4){
-                        lengthFourCounter.incrementAndGet();
-                    }
-                    if(str.length() == 5){
-                        lengthFiveCounter.incrementAndGet();
-                    }
+                    increment(str);
                 }
             }
         });
+        palindrome.start();
         threads.add(palindrome);
         Thread checkOneSymbol = new Thread(()->
         {
@@ -79,21 +65,13 @@ public class Main {
                     }
                 }
                 if (isBeauty) {
-                    if(str.length() == 3){
-                        lengthThreeCounter.incrementAndGet();
-                    }
-                    if(str.length() == 4){
-                        lengthFourCounter.incrementAndGet();
-                    }
-                    if(str.length() == 5){
-                        lengthFiveCounter.incrementAndGet();
-                    }
+                    increment(str);
                 }
             }
         });
+        checkOneSymbol.start();
         threads.add(checkOneSymbol);
         for(Thread th: threads){
-            th.start();
             th.join();
         }
         System.out.println("Красивых слов с длиной 3: " + lengthThreeCounter.get());
@@ -108,6 +86,17 @@ public class Main {
             text.append(letters.charAt(random.nextInt(letters.length())));
         }
         return text.toString();
+    }
+    private static void increment(String str){
+        if(str.length() == 3){
+            lengthThreeCounter.incrementAndGet();
+        }
+        if(str.length() == 4){
+            lengthFourCounter.incrementAndGet();
+        }
+        if(str.length() == 5){
+            lengthFiveCounter.incrementAndGet();
+        }
     }
 
 
