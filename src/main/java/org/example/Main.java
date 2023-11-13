@@ -67,6 +67,31 @@ public class Main {
             }
         });
         threads.add(palindrome);
+        Thread checkOneSymbol = new Thread(()->
+        {
+            for (var str : texts) {
+                boolean isBeauty = true;
+                char[] chars = str.toCharArray();
+                for (int i = 1; i < chars.length; i++) {
+                    if (chars[i] != chars[i - 1]) {
+                        isBeauty = false;
+                        break;
+                    }
+                }
+                if (isBeauty) {
+                    if(str.length() == 3){
+                        lengthThreeCounter.incrementAndGet();
+                    }
+                    if(str.length() == 4){
+                        lengthFourCounter.incrementAndGet();
+                    }
+                    if(str.length() == 5){
+                        lengthFiveCounter.incrementAndGet();
+                    }
+                }
+            }
+        });
+        threads.add(checkOneSymbol);
         for(Thread th: threads){
             th.start();
             th.join();
